@@ -1,0 +1,47 @@
+﻿@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Models.Reservations
+@model ReservationModel
+
+@{
+    ViewData["Title"] = "Reservas Por Data";
+}
+
+<div class="text-center row">
+    <h2 class="display-4">Reservas por Data</h2>
+</div>
+<hr />
+<form method="get" asp-action="PorData" asp-controller="reservas">
+    <div class="row">
+        <div class="col-md-3">
+            <input asp-for="Date" name="Date" placeholder="Select date" type="date" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+        </div>
+    </div>
+</form>
+<br/>
+ <partial name="_ReservationsWithStatusTable" />
+
+ 
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#reservas').DataTable({
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "pageLength": 5,
+            "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+            "order": [[3, 'asc']],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next" : "Avança"},
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            }
+        });
+    });
+</script>
+}

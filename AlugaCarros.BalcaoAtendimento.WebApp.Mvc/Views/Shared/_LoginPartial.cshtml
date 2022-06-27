@@ -1,0 +1,31 @@
+﻿@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Services.Users;
+@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Extensions;
+@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Services.Interfaces;
+@inject IAspNetUser AppUser
+
+@if (AppUser.IsAuthenticated())
+{
+    <div class="dropdown col-6">
+        <a class="icontext dropdown-toggle text-decoration-none text-reset" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <img class="icon icon-sm rounded-circle" src="https://s.gravatar.com/avatar/@this.HashEmailForGravatar(AppUser.GetUserEmail())?d=mm&s=45">
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Bem vindo @AppUser.GetUserEmail()</a></li>
+            <li><a class="dropdown-item" href="#">Agência: @AppUser.GetSelectedAgency()</a></li>
+            <li><a class="dropdown-item" href="#">Meu Perfil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" asp-controller="Identidade" asp-action="Logout">Sair</a></li>
+        </ul>
+    </div>
+
+}
+else
+{
+    <div class="widget-header">
+        <small class="title text-muted">Bem vindo!</small>
+        <div>
+            <a asp-controller="Identidade" asp-action="Login"> Login</a>
+        </div>
+    </div>
+}

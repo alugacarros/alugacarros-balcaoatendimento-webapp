@@ -1,0 +1,22 @@
+﻿@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Models.Locations
+@model NewLocationModel;
+
+@{
+    ViewData["Title"] = "Nova Locação";
+}
+
+<div class="text-center row">
+    <h2 class="display-4">Nova Locação</h2>
+</div>
+<hr />
+<vc:Summary></vc:Summary>
+<form method="get" asp-action="abrir" asp-controller="locacoes">
+    <div class="row">
+        <div class="col-md-3">
+            <input asp-for="ReservationCode" name="ReservationCode" placeholder="Informe a Reserva" class="form-control">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-block">Abrir</button>
+        </div>
+    </div>
+</form>

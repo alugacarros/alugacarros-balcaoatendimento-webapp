@@ -1,0 +1,88 @@
+﻿@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Models.Locations
+@model OpenLocationModel
+
+@{
+    ViewData["Title"] = "Abrir Locação";
+}
+
+<div class="text-center row">
+    <h2 class="display-4">Abrir Locação</h2>
+</div>
+<hr />
+<vc:Summary></vc:Summary>
+<form method="post" asp-action="abrir" asp-controller="locacoes">
+    <input type="hidden" asp-for="ReservationCode"/>
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="Reservation.ReservationCode"></label>
+            <input asp-for="Reservation.ReservationCode" class="form-control" disabled="disabled" />
+        </div>
+        <div class="col-4">
+            <label asp-for="Reservation.Client"></label>
+            <input asp-for="Reservation.Client" class="form-control" disabled="disabled" />
+        </div>
+        <div class="col-4">
+            <label asp-for="Reservation.ClientDocument"></label>
+            <input asp-for="Reservation.ClientDocument" class="form-control" disabled="disabled" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="Reservation.VehicleGroup"></label>
+            <input asp-for="Reservation.VehicleGroup" class="form-control" disabled="disabled" />
+        </div>
+        <div class="col-4">
+            <label asp-for="Reservation.FormatedLocationDate"></label>
+            <input asp-for="Reservation.FormatedLocationDate" class="form-control" disabled="disabled" />
+        </div>
+        <div class="col-4">
+            <label asp-for="Reservation.FormatedReturnDate"></label>
+            <input asp-for="Reservation.FormatedReturnDate" class="form-control" disabled="disabled" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="Reservation.Days"></label>
+            <input asp-for="Reservation.Days" class="form-control" disabled="disabled" />
+        </div>
+        <div class="col-4">
+            <label asp-for="Reservation.FormatedReservationValue"></label>
+            <input asp-for="Reservation.FormatedReservationValue" class="form-control" disabled="disabled" />
+        </div>
+        <div class="col-4">
+            <label asp-for="Reservation.FormatedSecurityDepositValue"></label>
+            <input asp-for="Reservation.FormatedSecurityDepositValue" class="form-control" disabled="disabled" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="SelectedVehicle"></label>
+            <select asp-for="SelectedVehicle" class="form-control form-select">
+                <option value="">Selecione um Veículo</option>
+                @foreach (var vehicle in Model.Vehicles)
+                {
+                    <option value="@vehicle.Plate">@vehicle.Plate - @vehicle.Model</option>
+                }
+            </select>
+            <span asp-validation-for="SelectedVehicle" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        @if (!Model.Vehicles.Any())
+        {
+            <div class="col-8 text-danger text-sm-start" style="padding:auto">
+                <span>Atenção, não existem veículos disponíveis para o grupo @Model.Reservation.GroupCode na agência atualmente.</span>
+            </div>
+        }
+    </div>
+    <br/>
+    <div class="form-group d-flex flex-column">
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary btn-block">Abrir Locação</button>
+        </div>
+    </div>
+</form>
+

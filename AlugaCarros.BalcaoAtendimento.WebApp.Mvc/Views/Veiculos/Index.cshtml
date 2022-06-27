@@ -1,0 +1,72 @@
+﻿@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Models.Vehicles
+@model VehicleByAgencyModel
+@{
+    ViewData["Title"] = "Consulta de Veículos";
+}
+
+<div class="text-center row">
+    <h2 class="display-4">Veículos Alocados na Agência</h2>
+</div>
+<hr />
+<form method="get" asp-action="index" asp-controller="veiculos">
+    <div class="row">
+        <div class="col-md-3">
+            <select asp-for="StatusFiltered" name="status" class="form-select">
+                <option value="0">Selecione um Status</option>
+                <option value="1">Disponível</option>
+                <option value="2">Alugado</option>
+                <option value="3">Em Manutenção</option>
+                <option value="4">Inativo</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+        </div>
+    </div>
+</form>
+<br/>
+<table class="table table-hover table-sm" id="veiculos">
+    <thead>
+        <tr>
+            <th scope="col">Placa</td>
+            <th scope="col">Modelo</td>
+            <th scope="col">Grupo</td>
+            <th scope="col">Status</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vehicle in Model)
+        {
+            <tr>
+                <th scope="row">@vehicle.Plate</th>
+                <td>@vehicle.Model</td>
+                <td>@vehicle.VehicleGroup</td>
+                <td>@vehicle.VehicleStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#veiculos').DataTable({
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "pageLength": 5,
+            "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+            "order": [[1, 'asc']],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next" : "Avança"},
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            }
+        });
+    });
+</script>
+}

@@ -1,0 +1,36 @@
+﻿@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Models.Reservations
+@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Extensions
+@model ReservationModel
+
+<table class="table table-hover table-sm" id="reservas">
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Grupo</th>
+            <th scope="col">Retirada</th>
+            <th scope="col">Retorno</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model.Items)
+        {
+            <tr>
+                <th scope="row">@reservation.ReservationCode</th>
+                <td>@reservation.Client</td>
+                <td>@reservation.VehicleGroup</td>
+                <td>@reservation.PickupDate.ToString("dd/MM/yyyy")</td>
+                <td>@reservation.ReturnDate.ToString("dd/MM/yyyy")</td>
+                <td>@EnumHelper.GetEnumDescription(reservation.Status)</td>
+                <td>
+                    @if (reservation.Status == ReservationStatus.Opened)
+                    {
+                        @Html.ActionLink("Locar","abrir","locacoes", new { reservationCode = reservation.ReservationCode }, new { @class="btn btn-primary", style="padding:.075rem .75rem" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

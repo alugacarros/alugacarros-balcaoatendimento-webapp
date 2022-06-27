@@ -1,0 +1,60 @@
+﻿@using AlugaCarros.BalcaoAtendimento.WebApp.Mvc.Models.Locations
+@using System.Globalization
+@model List<LocationResponse>;
+@{
+    ViewData["Title"] = "Locações";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Locações Realizadas</h1>    
+</div>
+
+
+<table class="table table-hover table-sm" id="locacoes">
+    <thead>
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Reserva</th>
+            <th scope="col">Veiculo</th>
+            <th scope="col">Data</th>
+            <th scope="col">Retorno</th>
+            <th scope="col">Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <th scope="row">@reservation.Code</th>
+                <th scope="row">@reservation.ReservationCode</th>
+                <td>@reservation.VehicleGroupCode - @reservation.VehiclePlate</td>
+                <td>@reservation.Date.ToString("dd/MM/yyyy")</td>
+                <td>@reservation.ReturnDate.ToString("dd/MM/yyyy")</td>
+                <td>@reservation.Value</td>                
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#locacoes').DataTable({
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "pageLength": 5,
+            "lengthMenu": [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "Todos"]],
+             "order": [[3, 'desc']],
+            "language": {
+                "lengthMenu": "Exibe _MENU_ Registros por página",
+                "search": "Procurar",
+                "paginate": { "previous": "Retorna", "next" : "Avança"},
+                "zeroRecords": "Nada foi encontrado",
+                "info": "Exibindo página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sem registros",
+                "infoFiltered": "(filtrado de _MAX_ regitros totais)"
+            }
+        });
+    });
+</script>
+}
